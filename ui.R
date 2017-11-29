@@ -5,11 +5,11 @@
 # http://shiny.rstudio.com
 #
 
-#w
+
 shinyUI(fluidPage(
   # Copy the line below to make a date range selector
-  dateRangeInput("dates", label = "Date Range for Projected Data", 
-                 start = "2005-01-02", end = "2057-01-02"),
+  #dateRangeInput("dates", label = "Date Range for Projected Data", 
+                 #start = "2005-01-02", end = "2057-01-02"),
 
   # Application title
   titlePanel("Climate Data Application"),
@@ -30,8 +30,12 @@ shinyUI(fluidPage(
                 inline = TRUE,
                 selected = NULL),
     dateRangeInput("dates", label = h3("Date Range"), start = "2005-01-02", end = "2057-01-01"),
-    checkboxInput("checkbox", label = h3("Display Observed Data"), value = FALSE)
-     
+    checkboxInput("checkbox", label = h3("Display Observed Data"), value = FALSE),
+    radioButtons(inputId="pic", 
+                 label=h3("Background Image"), 
+                 choices=c('Bella', 'Edward', 'Jacob'), 
+                 inline = TRUE, 
+                 selected = NULL)
     ),
 
     # Show outputs, text, etc. in the main panel
