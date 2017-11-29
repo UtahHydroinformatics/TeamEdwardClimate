@@ -15,20 +15,34 @@ shinyServer(function(input, output) {
   })
   
   output$futureplot <- renderPlot({
-    plotdata <- subset(prcp_proj, Station==input$site &
+    plotdata <- subset(prcp_proj,Station==input$site &
                          Date >= input$dates[1] &
-                         Date <= input$dates[2])
-   if(input$checkbox==TRUE) {  
-     ggplot()+
-       geom_line(data=plotdata,aes(x=plotdata$Date, y=plotdata[,input$rcp]), 
-       color="red")+
-       geom_line(data=snoteldata, aes(x=Date, y=DailyPrecip),color="black")
-   }
-    else{
-       
-     ggplot()+
-        geom_line(data=plotdata, aes(x=plotdata$Date, y=plotdata[,input$rcp]))
-     }
+                         Date<= input$dates[2])
+    
+    
+    # If you want to show an image coming from the web, first download it with R:
+    #Download Edwards Beautiful Face
+    download.file("https://cdn.images.express.co.uk/img/dynamic/36/590x/Twilight-star-Robert-Pattinson-as-Edward-Cullen-794437.jpg" , destfile="Edward.jpg")
+    #Download All Three Beautiful Faces
+    download.file("http://stuffpoint.com/twilight/image/291711-twilight-edward-bella-jacob.jpg" , destfile="Jacob.jpg")
+    #Downlaod Bella's Beautiful Face
+    download.file("http://s3.foreveryoungadult.com.s3.amazonaws.com/_uploads/images/36191/bellaswan_header__span.jpg" , destfile="Bella.jpg")
+    Picture=readJPEG(paste(input$pic, ".jpg", sep = ""))
+    
+    if(input$checkbox==TRUE){
+      plot(x=plotdata$Date,y=plotdata[,input$rcp],type='n', main="", xlab="Date", ylab="Precip") 
+      rasterImage(Picture, par()$usr[1], par()$usr[3], par()$usr[2], par()$usr[4])
+      grid()
+      lines(plotdata$Date, plotdata[,input$rcp], type="l", lwd=1, col="white")
+      lines(x=snoteldata$Date,y=snoteldata$DailyPrecip, col="purple")
+      
+    }else{
+      plot(x=plotdata$Date,y=plotdata[,input$rcp],type='n', main="", xlab="Date", ylab="Precip") 
+      rasterImage(Picture, par()$usr[1], par()$usr[3], par()$usr[2], par()$usr[4])
+      grid()
+      lines(plotdata$Date, plotdata[,input$rcp], type="l", lwd=1, col="white")
+      
+    }
    
   })
   
