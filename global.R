@@ -5,8 +5,9 @@ load('data/prcp_proj.Rdata')
 load('data/locations.Rdata')
 names(locations) <- c("Station", "lat", "long")
 
-
+library(jpeg)
 library(ggplot2)
+library(rsconnect)
 library(leaflet)
 
 twilighticon <- makeIcon(
