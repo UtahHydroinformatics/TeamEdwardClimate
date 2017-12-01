@@ -6,7 +6,6 @@ load('data/locations.Rdata')
 names(locations) <- c("Station", "lat", "long")
 
 library(jpeg)
-library(ggplot2)
 library(rsconnect)
 library(leaflet)
 
